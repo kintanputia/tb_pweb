@@ -16,7 +16,7 @@
                             <li class="p-4 hover:bg-gray-50 cursor-pointer">
                             {{ $kelas->kode_kelas }}
                             <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="">Detail</a>
+                            <a href="">Lihat</a>
                             </button>
                             </li>
                             @endforeach
