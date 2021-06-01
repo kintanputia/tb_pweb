@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Krs;
+use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,14 +17,18 @@ class KelasController extends Controller
      */
     public function index()
     {
-        // $data_krs = DB::table('krs')
-        //             -> join ('kelas', 'krs.kelas_id', '=', 'kelas.id')
-        //             -> select ('kode_kelas', 'nama_matkul', 'tahun', 'semester')
-        //             -> where ('mahasiswa_id','=','1')
-        //             -> orderBy ('tahun', 'desc')
-        //             -> orderBy ('semester', 'desc')
-        //             -> get();
-        $data_krs = DB::table('kelas')->get();
+        if (auth()->user()->level=='admin'){
+            $data_krs = DB::table('kelas')
+                        -> orderBy ('tahun', 'desc')
+                        -> orderBy ('semester', 'desc')
+                        ->get();
+        }else {
+            $data_krs = DB::table('krs')
+                        -> join ('kelas', 'krs.kelas_id', '=', 'kelas.id')
+                        -> select ('kode_kelas', 'nama_matkul', 'tahun', 'semester','id')
+                        -> where ('mahasiswa_id','=', auth()->user()->id)
+                        -> get();
+        }
         return view('kelas.index', ['data_krs' => $data_krs]);
     }
 
