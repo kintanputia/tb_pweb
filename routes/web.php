@@ -37,3 +37,6 @@ Route::get('/kelas', [KelasController::class, 'index'])->name('kelas');
 Route::get('/dkelas/{kelas}', [App\Http\Controllers\KelasController::class, 'show']);
 Route::get('/tambah_peserta', [App\Http\Controllers\KrsController::class, 'create']);
 
+//
+Route::get('/tkelas', [App\Http\Controllers\KelasController::class, 'create']);
+Route::get('/ukelas/{kelas}', [App\Http\Controllers\KelasController::class, 'edit']);

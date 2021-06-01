@@ -18,10 +18,16 @@
                             <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
                             <a href="/dkelas/{{$kelas->id}}">Detail</a>
                             </button>
+                            <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
+                            <a href="/ukelas/{{$kelas->id}}">Ubah</a>
+                            </button>
                             </li>
                             @endforeach
                         </ul>
                     </div>
+                    <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
+                            <a href="/tkelas">Tambah</a>
+                            </button>
                 </div>
         </div>
     @endif

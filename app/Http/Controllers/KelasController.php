@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Krs;
+use App\Models\Pertemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -34,6 +36,7 @@ class KelasController extends Controller
     public function create()
     {
         //
+        return view('kelas.tambahkelas');
     }
 
     /**
@@ -66,9 +69,10 @@ class KelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kelas $kelas)
     {
         //
+        return view('kelas.ubahkelas');
     }
 
     /**
