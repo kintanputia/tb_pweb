@@ -40,6 +40,7 @@ class KelasController extends Controller
     public function create()
     {
         //
+        return view('kelas.tambahkelas');
     }
 
     /**
@@ -72,9 +73,10 @@ class KelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kelas $kelas)
     {
         //
+        return view('kelas.ubahkelas');
     }
 
     /**
