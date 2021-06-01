@@ -33,3 +33,7 @@ require __DIR__.'/auth.php';
 use App\Http\Controllers\KelasController;
 Route::get('/kelas', [KelasController::class, 'index'])->name('kelas');
 
+//Detail Kelas
+Route::get('/dkelas/{kelas}', [App\Http\Controllers\KelasController::class, 'show']);
+Route::get('/tambah_peserta', [App\Http\Controllers\KrsController::class, 'create']);
+

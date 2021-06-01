@@ -53,9 +53,11 @@ class KelasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Kelas $kelas)
     {
-        //
+        $krs = Krs::where('kelas_id', $kelas->id)->get();
+        $sPertemuan = Pertemuan::where('kelas_id', $kelas->id)->get();
+        return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan'));
     }
 
     /**
