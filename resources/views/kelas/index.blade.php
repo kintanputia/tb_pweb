@@ -39,16 +39,20 @@
                             <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
                             <a href="/dkelas/{{$kelas->id}}">Detail</a>
                             </button>
+                            @if (auth()->user()->level=="admin")
                             <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
                             <a href="/ukelas/{{$kelas->id}}">Ubah</a>
                             </button>
+                            @endif
                             </li>
                             @endforeach
                         </ul>
                     </div>
+                    @if (auth()->user()->level=="admin")
                     <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
                             <a href="/tkelas">Tambah</a>
                             </button>
+                    @endif
                 </div>
         </div>
     @endif
