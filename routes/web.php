@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/register', function(){
+    return view('auth.register');
+});
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -40,3 +44,10 @@ Route::get('/tambah_peserta', [App\Http\Controllers\KrsController::class, 'creat
 //
 Route::get('/tkelas', [App\Http\Controllers\KelasController::class, 'create']);
 Route::get('/ukelas/{kelas}', [App\Http\Controllers\KelasController::class, 'edit']);
+
+use App\Http\Controllers\UsersController;
+Route::get('/mahasiswa', [UsersController::class, 'index'])->name('mahasiswa');
+Route::get('/dmahasiswa/{user}', [App\Http\Controllers\UsersController::class, 'show']);
+Route::delete('/dmahasiswa/{user}', [App\Http\Controllers\UsersController::class, 'destroy']);
+Route::get('/dmahasiswa/{user}/umahasiswa', [App\Http\Controllers\UsersController::class, 'edit']);
+Route::patch('/dmahasiswa/{user}', [App\Http\Controllers\UsersController::class, 'update']);

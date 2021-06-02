@@ -20,7 +20,7 @@
         <div class="p-4">
           <h2 class="font-medium text-2xl text-gray-600 text-lg my-2 uppercase">Mahasiswa</h2>
           <div class="mt-5">
-            <a href="" class="hover:bg-gray-700 rounded-full py-2 px-3 font-semibold hover:text-white bg-gray-400 text-gray-100">Lihat Detail</a>
+            <a href="/mahasiswa" class="hover:bg-gray-700 rounded-full py-2 px-3 font-semibold hover:text-white bg-gray-400 text-gray-100">Lihat Detail</a>
           </div>
         </div>
       </div>
