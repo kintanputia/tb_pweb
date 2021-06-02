@@ -42,7 +42,7 @@
                 <div class="flex flex-row justify-end space-x-4 my-1">
                     <div>
                     <button class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">
-                        <a href="/tambah_peserta">Tambah Peserta Kelas</a>
+                        <a href="/tambah_peserta/{{$kelas->id}}">Tambah Peserta Kelas</a>
                     </button>
                     </div>
                     <div>
@@ -77,23 +77,23 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($krs as $mhs)
+                        @foreach ($peserta as $krs)
                             <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">
-                                    {{ $mhs->krs_id }}
-                                    </div>
+                                <div class="text-sm font-medium text-gray-900">
+                                {{ $n++ }}
+                                </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">1911521015</div>
+                                <div class="text-sm text-gray-900">{{ $krs->nim }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
-                                Fathania Zulfani
+                                {{ $krs->name }}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
+                                <a href="/hapus_peserta/{{$k->id}}" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
                             </td>
                             </tr>
                             @endforeach
@@ -128,7 +128,7 @@
                         <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                {{ $prt->pertemuan_id }}
+                                {{ $i++ }}
                                 </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">

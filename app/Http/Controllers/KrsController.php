@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Kelas;
+use App\Models\Krs;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -23,9 +25,14 @@ class KrsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Kelas $kelas)
     {
-        //
+        $dt = DB::table('krs')
+                    ->join('users', 'users.id', '=', 'krs.mahasiswa_id')
+                    ->where('kelas_id', '!=', $kelas->id)
+                    ->get();
+
+        return view('kelas.tambah_peserta')->with('data', $dt);
     }
 
     /**
@@ -79,8 +86,9 @@ class KrsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Krs $krs)
     {
-        //
+        Krs::destroy($krs->id);
+        return redirect()->action([KelasController::class, 'show'], ['kelas' => $krs->kelas_id]);
     }
 }
