@@ -17,14 +17,19 @@ class KelasController extends Controller
      */
     public function index()
     {
-        // $data_krs = DB::table('krs')
-        //             -> join ('kelas', 'krs.kelas_id', '=', 'kelas.id')
-        //             -> select ('kode_kelas', 'nama_matkul', 'tahun', 'semester')
-        //             -> where ('mahasiswa_id','=','1')
-        //             -> orderBy ('tahun', 'desc')
-        //             -> orderBy ('semester', 'desc')
-        //             -> get();
-        $data_krs = DB::table('kelas')->get();
+        if (auth()->user()->level=='admin'){
+            $data_krs = DB::table('kelas')
+                        -> orderBy ('tahun', 'desc')
+                        -> orderBy ('semester', 'desc')
+                        ->get();
+        }else {
+            $data_krs = DB::table('krs')
+                        -> join ('kelas', 'krs.kelas_id', '=', 'kelas.id')
+                        -> select ('kode_kelas', 'nama_matkul', 'tahun', 'semester','id')
+                        -> where ('mahasiswa_id','=', auth()->user()->id)
+                        -> orderBy ('nama_matkul', 'asc')
+                        -> get();
+        }
         return view('kelas.index', ['data_krs' => $data_krs]);
     }
 
@@ -58,8 +63,19 @@ class KelasController extends Controller
      */
     public function show(Kelas $kelas)
     {
-        $krs = Krs::where('kelas_id', $kelas->id)->get();
-        $sPertemuan = Pertemuan::where('kelas_id', $kelas->id)->get();
+        if (auth()->user()->level=='admin'){
+            $krs = Krs::where('kelas_id', $kelas->id)->get();
+            $sPertemuan = Pertemuan::where('kelas_id', $kelas->id)->get();
+        }
+        else{
+            $krs = DB::table('kelas')->get();
+            $sPertemuan = DB::table('absensi')
+                    ->join ('krs', 'absensi.krs_id', '=', 'krs.krs_id')
+                    ->join ('pertemuan', 'krs.kelas_id','=', 'pertemuan.kelas_id')
+                    ->select ('mahasiswa_id', 'pertemuan_ke', 'krs.krs_id')
+                    ->where ('pertemuan.kelas_id', '=', $kelas->id)
+                    ->get();
+        }
         return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan'));
     }
 

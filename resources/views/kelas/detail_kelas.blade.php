@@ -39,6 +39,7 @@
                         <td>: {{ $kelas->sks }}</td>
                     </tr>        
                 </table> 
+                @if (auth()->user()->level=="admin")
                 <div class="flex flex-row justify-end space-x-4 my-1">
                     <div>
                     <button class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">
@@ -51,10 +52,11 @@
                         </button>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
                 
-            
+        @if (auth()->user()->level=="admin") 
             <div class="flex flex-row justify-center space-x-4">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="py-2 align-middle inline-block min-w sm:px-6 lg:px-8">
@@ -150,7 +152,56 @@
                 </div>
                 </div>
             </div>
+        </div>
+        @endif
 
-    </div>
+        @if (auth()->user()->level=="mahasiswa")
+        <div class="flex flex-row justify-center space-x-4">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            No
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Pertemuan Ke-
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Keterangan
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($sPertemuan as $prt)
+                        <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm font-medium text-gray-900">
+                                {{ $loop->iteration }}
+                                </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ $prt->pertemuan_ke }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">
+                            @if ($prt->mahasiswa_id == auth()->user()->id)
+                                {{$kehadiran='Hadir'}}
+                            @else 
+                                {{$kehadiran='Tidak Hadir'}}
+                            @endif
+                            </div>
+                        </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                </div>
+                </div>
+                </div>
+            </div>
+        @endif 
    
 </x-app-layout>

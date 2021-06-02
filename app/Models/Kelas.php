@@ -9,6 +9,6 @@ class kelas extends Model
 {
     use HasFactory;
     protected $table='kelas';
-    protected $primaryKey='kelas_id';
+    //protected $primaryKey='kelas_id';
 
 }
