@@ -170,10 +170,7 @@
                             Pertemuan Ke-
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Tanggal Pertemuan
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Aksi
+                            Keterangan
                         </th>
                         </tr>
                     </thead>
@@ -182,7 +179,7 @@
                         <tr>
                         <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">
-                                {{ $prt->pertemuan_id }}
+                                {{ $loop->iteration }}
                                 </div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
@@ -190,11 +187,12 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">
-                            {{ $prt->tanggal }}
+                            @if ($prt->mahasiswa_id == auth()->user()->id)
+                                {{$kehadiran='Hadir'}}
+                            @else 
+                                {{$kehadiran='Tidak Hadir'}}
+                            @endif
                             </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Detail</a>
                         </td>
                         </tr>
                         @endforeach
