@@ -53,6 +53,18 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         //
+
+        Kelas::create([
+            'kode_kelas' => $request->kode_kelas,
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'tahun' => $request->tahun,
+            'semester' => $request->semester,
+            'sks' => $request->sks,
+        ]);
+
+        return redirect('/kelas')->with('status', 'Data Kelas Berhasil Ditambah!');
+
     }
 
     /**
@@ -126,7 +138,8 @@ class KelasController extends Controller
     public function edit(Kelas $kelas)
     {
         //
-        return view('kelas.ubahkelas');
+        //Kelas::where('id',$kelas)->get();
+        return view('kelas.ubahkelas', compact('kelas'));
     }
 
     /**
@@ -139,6 +152,25 @@ class KelasController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'kode_kelas' => 'required',
+            'kode_matkul' => 'required',
+            'nama_matkul' => 'required',
+            'tahun' => 'required',
+            'semester' => 'required',
+            'sks' => 'required'
+        ]);
+
+        Kelas::where('id', $id)
+            ->update([
+            'kode_kelas' => $request->kode_kelas,
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'tahun' => $request->tahun,
+            'semester' => $request->semester,
+            'sks' => $request->sks
+            ]);
+            return redirect('/kelas')->with('status', 'Data Berhasil Diubah');
     }
 
     /**

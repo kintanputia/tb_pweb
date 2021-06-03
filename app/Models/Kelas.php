@@ -10,6 +10,6 @@ class kelas extends Model
     use HasFactory;
     protected $table='kelas';
     protected $fillable = ['kode_kelas', 'kode_matkul', 'nama_matkul', 'tahun', 'semester', 'sks'];
-    public $timestamps = false;
+    public $timestamps = false; 
 
 }
