@@ -9,21 +9,24 @@
             <div class="flex justify-center p-4 mb-5">
                 <h1 class="text-xl text-blue-500">Daftar Mahasiswa</h1>
             </div>
-            <div class="flex justify-center">
+                <div class="flex justify-center">
                     <div class="bg-white shadow-xl rounded-lg w-1/2">
-                    @foreach($mahasiswa as $user)
+                        @foreach($mahasiswa as $user)
                         <ul class="divide-y divide-gray-300">
                             <li class="p-4 hover:bg-gray-50 cursor-pointer">
-                            {{ $user->name}}
-                            <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="/dmahasiswa/{{$user->id}}">Detail</a>
-                            </button>
+                                {{ $user->name}}
+                                <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
+                                    <a href="/dmahasiswa/{{$user->id}}">Detail</a>
+                                </button>
                             </li>
-                        @endforeach
+                            @endforeach
                         </ul>
                     </div>
                 </div>
-        </div>
+                    <div class="flex justify-center text-gray-600 bg-secondary-50 my-3">
+                        {{ $mahasiswa->links() }}
+                    </div>
+                </div>
     @endif
     {{-- @if (auth()->user()->level=="mahasiswa")
         <div class="container">
