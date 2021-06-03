@@ -9,6 +9,11 @@
             <div class="flex justify-center p-4 mb-10">
                 <h1 class="text-xl text-blue-500">Daftar Kelas</h1>
             </div>
+            <div class=" flex justify-end mx-9">
+            <button class="p-2 ml-4 mr-2 border-2 bg-white rounded hover:text-white text-grey border-grey hover:bg-grey">
+                            <a href="/tkelas">Tambah Kelas</a>
+                            </button>
+            </div>
             <div class="flex justify-center">
                     <div class="bg-white shadow-xl rounded-lg w-1/2">
                     @foreach($data_krs as $kelas)
@@ -18,10 +23,14 @@
                             <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
                             <a href="/dkelas/{{$kelas->id}}">Detail</a>
                             </button>
+                            <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
+                            <a href="/ukelas/{{$kelas->id}}">Ubah</a>
+                            </button>
                             </li>
                             @endforeach
                         </ul>
                     </div>
+
                 </div>
         </div>
     @endif
@@ -39,20 +48,10 @@
                             <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
                             <a href="/dkelas/{{$kelas->id}}">Detail</a>
                             </button>
-                            @if (auth()->user()->level=="admin")
-                            <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="/ukelas/{{$kelas->id}}">Ubah</a>
-                            </button>
-                            @endif
                             </li>
                             @endforeach
                         </ul>
                     </div>
-                    @if (auth()->user()->level=="admin")
-                    <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="/tkelas">Tambah</a>
-                            </button>
-                    @endif
                 </div>
         </div>
     @endif

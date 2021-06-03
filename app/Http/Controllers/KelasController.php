@@ -53,6 +53,18 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         //
+
+        Kelas::create([
+            'kode_kelas' => $request->kode_kelas,
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'tahun' => $request->tahun,
+            'semester' => $request->semester,
+            'sks' => $request->sks,
+        ]);
+
+        return redirect('/kelas')->with('status', 'Data Kelas Berhasil Ditambah!');
+
     }
 
     /**
@@ -76,11 +88,13 @@ class KelasController extends Controller
 
         }
         else{
+            $kehadiran = 'Tidak Hadir';
             $krs = DB::table('krs')
                     //->join ('users', 'krs.mahasiswa_id', '=', 'users.id')
                     ->join ('absensi', 'krs.krs_id', '=', 'absensi.krs_id')
                     ->select ('absensi.pertemuan_id', 'absensi.krs_id')
                     ->where ('krs.mahasiswa_id', '=', auth()->user()->id)
+                    ->where ('krs.kelas_id', '=', $kelas->id)
                     ->get();
             $sPertemuan = DB::table('pertemuan')
                         //  ->join ('absensi', 'absensi.pertemuan_id','=', 'pertemuan.pertemuan_id')
@@ -95,9 +109,9 @@ class KelasController extends Controller
                         // foreach ($krs as $absen){
                         //     foreach ($sPertemuan as $prt){
                         //         if ($absen->pertemuan_id == $prt->pertemuan_id){
-                        //         $kehadiran = 'Hadir';
+                        //         $kehadiran [] = 'Hadir';
                         //         }else{
-                        //         $kehadiran = 'Tidak Hadir';
+                        //         $kehadiran [] = 'Tidak Hadir';
                         //         }
                         //     }
                         // }
@@ -106,13 +120,13 @@ class KelasController extends Controller
                         // for ($i=0 ; $i<$panjang1 ; ++$i){
                         //     for ($j=0 ; $j<$panjang2 ; ++$j){
                         //         if ($krs[$i]=$sPertemuan[$j]){
-                        //             $kehadiran = 'Hadir';
+                        //             $kehadiran[$j] = 'Hadir';
                         //         }else {
-                        //             $kehadiran = 'Tidak Hadir';
+                        //             $kehadiran[$j] = 'Tidak Hadir';
                         //         }
                         //     }
                         // }
-            return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan'));
+            return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan', 'kehadiran'));
             }
         
     }
@@ -126,7 +140,8 @@ class KelasController extends Controller
     public function edit(Kelas $kelas)
     {
         //
-        return view('kelas.ubahkelas');
+        //Kelas::where('id',$kelas)->get();
+        return view('kelas.ubahkelas', compact('kelas'));
     }
 
     /**
@@ -139,6 +154,25 @@ class KelasController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'kode_kelas' => 'required',
+            'kode_matkul' => 'required',
+            'nama_matkul' => 'required',
+            'tahun' => 'required',
+            'semester' => 'required',
+            'sks' => 'required'
+        ]);
+
+        Kelas::where('id', $id)
+            ->update([
+            'kode_kelas' => $request->kode_kelas,
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'tahun' => $request->tahun,
+            'semester' => $request->semester,
+            'sks' => $request->sks
+            ]);
+            return redirect('/kelas')->with('status', 'Data Berhasil Diubah');
     }
 
     /**

@@ -95,7 +95,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="/hapus_peserta/{{$k->krs_id}}" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
+                                <a href="/hapus_peserta/{{$k->id}}" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
                             </td>
                             </tr>
                             @endforeach
@@ -187,13 +187,16 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">
-                            @foreach ($krs as $absen)
-                                @if($absen->pertemuan_id == $prt->pertemuan_id)
-                                    {{$Kehadiran = '8Hadir8'}}
-                                @else
-                                    {{$kehadiran = 'Tidak Hadir'}}
-                                @endif
-                            @endforeach
+                                <?php
+                                    foreach ($krs as $absen){
+                                        if ($prt->pertemuan_id == $absen->pertemuan_id){
+                                            $kehadiran = 'Hadir';
+                                        } else if ($prt->pertemuan_id != $absen->pertemuan_id){
+                                            $kehadiran = ' Tidak Hadir';
+                                        }
+                                    }
+                                ?>
+                                {{$kehadiran}}
                             </div>
                         </td>
                         </tr>
