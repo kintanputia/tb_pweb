@@ -68,11 +68,11 @@ class KelasController extends Controller
                     ->join('users', 'users.id', '=', 'krs.mahasiswa_id')
                     ->where('kelas_id', $kelas->id)
                     ->get();
-            $k = Krs::where('kelas_id', $kelas->id)->first();
+            // $k = Krs::where('kelas_id', $kelas->id)->first();
             $sPertemuan = Pertemuan::where('kelas_id', $kelas->id)->get();
             $i = 1;
             $n = 1;
-            return view('kelas.detail_kelas', compact('kelas', 'peserta', 'sPertemuan', 'i', 'n', 'k'));
+            return view('kelas.detail_kelas', compact('kelas', 'peserta', 'sPertemuan', 'i', 'n'));
 
         }
         else{

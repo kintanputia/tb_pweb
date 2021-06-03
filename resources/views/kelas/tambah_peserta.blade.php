@@ -22,9 +22,7 @@
                 </div>
                 <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
                 <div class="mt-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">
-                        <a href="/dkelas/{{ $kelas->id }}">Kembali</a>
-                    </button>
+                    <a href="/dkelas/{{ $kelas->id }}" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">Kembali</a>
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">
                         Tambah Data
                     </button>

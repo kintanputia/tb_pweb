@@ -42,6 +42,10 @@ class KrsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'mahasiswa_id' => 'required'
+        ]);
+
         Krs::create([
             'kelas_id' => $request->kelas_id,
             'mahasiswa_id' => $request->mahasiswa_id
@@ -91,12 +95,13 @@ class KrsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Krs $krs)
     {
-        // Krs::destroy($krs->krs_id);
+        Krs::destroy($krs->krs_id);
         // Krs::where('krs_id', $id)->delete();
-        $idkls = Krs::where('krs_id', $id)->first(['kelas_id']);
-        // return redirect()->action([KelasController::class, 'show'], ['kelas' => $idkls->kelas_id]);
-        return redirect('dkelas/'.$idkls->kelas_id);
+        // $idkls = Krs::where('krs_id', $id)->first(['kelas_id']);
+        return redirect()->action([KelasController::class, 'show'], ['kelas' => $krs->kelas_id]);
+        // return redirect('dkelas/'.$idkls->kelas_id);
+        // return $krs;
     }
 }
