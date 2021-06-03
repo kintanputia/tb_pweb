@@ -64,8 +64,16 @@ class KelasController extends Controller
     public function show(Kelas $kelas)
     {
         if (auth()->user()->level=='admin'){
-            $krs = Krs::where('kelas_id', $kelas->id)->get();
+            $peserta = DB::table('krs')
+                    ->join('users', 'users.id', '=', 'krs.mahasiswa_id')
+                    ->where('kelas_id', $kelas->id)
+                    ->get();
+            $k = Krs::where('kelas_id', $kelas->id)->first();
             $sPertemuan = Pertemuan::where('kelas_id', $kelas->id)->get();
+            $i = 1;
+            $n = 1;
+            return view('kelas.detail_kelas', compact('kelas', 'peserta', 'sPertemuan', 'i', 'n', 'k'));
+
         }
         else{
             $krs = DB::table('krs')
@@ -104,8 +112,9 @@ class KelasController extends Controller
                         //         }
                         //     }
                         // }
+            return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan'));
             }
-        return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan'));
+        
     }
 
     /**

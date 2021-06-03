@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Kelas;
-use App\Models\Krs;
-use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
-class KrsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +15,22 @@ class KrsController extends Controller
      */
     public function index()
     {
-        $data_krs = DB::table('krss')
-                        ->join ('kelass','krss.kelas_id', '=', 'kelass.kelas_id');
-        return view('/kelas/index', ['data_krs' => $data_krs]);
+        
+        $pagination = 10;
+
+        $mahasiswa = User::where('level', 'mahasiswa')->paginate($pagination);
+
+        return view('mahasiswa.index', compact('mahasiswa'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Kelas $kelas)
+    public function create()
     {
-        $dt = DB::table('krs')
-                    ->join('users', 'users.id', '=', 'krs.mahasiswa_id')
-                    ->where('kelas_id', '!=', $kelas->id)
-                    ->get();
-
-        return view('kelas.tambah_peserta')->with('data', $dt);
+        //
     }
 
     /**
@@ -52,9 +50,9 @@ class KrsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return view('mahasiswa.detail_mahasiswa', compact('user'));
     }
 
     /**
@@ -63,21 +61,31 @@ class KrsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('mahasiswa.ubahmahasiswa', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'nim' => 'required'
+        ]);
+
+        User::where('id', $user->id)
+            ->update([
+                'name' => $request->name,
+                'nim' => $request->nim
+            ]);
+            return redirect('/mahasiswa')->with('status', 'Data Berhasil Diubah');
     }
 
     /**
@@ -86,9 +94,9 @@ class KrsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Krs $krs)
+    public function destroy(User $user)
     {
-        Krs::destroy($krs->id);
-        return redirect()->action([KelasController::class, 'show'], ['kelas' => $krs->kelas_id]);
+        User::destroy($user->id);
+        return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil Dihapus!');
     }
 }
