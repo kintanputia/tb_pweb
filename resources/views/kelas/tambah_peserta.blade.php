@@ -5,15 +5,33 @@
         </h2>
     </x-slot>
 
-    <div class="inline-block relative w-64">
-    <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-        @foreach ($data as $mhs)
-        <option>{{ $mhs->name }}</option>
-        @endforeach
-    </select>
-    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-    </div>
+    <div class="container">
+
+        <div class="flex justify-center">
+            <form method="post" action="/dkelas/{{$kelas->id}}" class=" flex-1 max-w-xl m-4 p-10 bg-white rounded shadow-xl">
+            @csrf
+                <p class="text-gray-800 font-medium">Pilih Mahasiswa</p>
+                <div class="">
+                <!-- <label class="block text-sm text-gray-00" for="mahasiswa">Nama Mahasiswa</label> -->
+                    <select name="mahasiswa_id" id="mahasiswa" class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                        <option value="">Select Name</option>
+                        @foreach ($dt as $mhs)
+                        <option value="{{ $mhs->id }}">{{ $mhs->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="hidden" name="kelas_id" value="{{ $kelas->id }}">
+                <div class="mt-4">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">
+                        <a href="/dkelas/{{ $kelas->id }}">Kembali</a>
+                    </button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white text-sm font-bold px-2 py-2 border border-blue-700 rounded">
+                        Tambah Data
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
 </x-app-layout>

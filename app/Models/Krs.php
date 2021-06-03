@@ -9,6 +9,7 @@ class Krs extends Model
 {
     use HasFactory;
     protected $table='krs';
-    protected $fillable = ['krs_id', 'kelas_id', 'mahasiswa_id'];
+    protected $fillable = ['kelas_id', 'mahasiswa_id'];
+    public $timestamps = false;
 
 }

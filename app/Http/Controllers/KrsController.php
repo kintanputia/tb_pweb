@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Kelas;
 use App\Models\Krs;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
@@ -27,12 +28,10 @@ class KrsController extends Controller
      */
     public function create(Kelas $kelas)
     {
-        $dt = DB::table('krs')
-                    ->join('users', 'users.id', '=', 'krs.mahasiswa_id')
-                    ->where('kelas_id', '!=', $kelas->id)
-                    ->get();
-
-        return view('kelas.tambah_peserta')->with('data', $dt);
+        $dt = User::where('name', '!=', 'Admin')->whereNotIn('id', Krs::where('kelas_id', '=', $kelas->id)->pluck('mahasiswa_id'))->get();
+        // $kelas = Krs::where('kelas_id', $kelas->id)->first();
+    
+        return view('kelas.tambah_peserta', compact('kelas', 'dt'));
     }
 
     /**
@@ -43,7 +42,13 @@ class KrsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Krs::create([
+            'kelas_id' => $request->kelas_id,
+            'mahasiswa_id' => $request->mahasiswa_id
+        ]);
+
+        return redirect()->action([KelasController::class, 'show'], ['kelas' => $request->kelas_id])->with('status', 'Data Berhasil Ditambah');;
+
     }
 
     /**
@@ -86,9 +91,12 @@ class KrsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Krs $krs)
+    public function destroy($id)
     {
-        Krs::destroy($krs->id);
-        return redirect()->action([KelasController::class, 'show'], ['kelas' => $krs->kelas_id]);
+        // Krs::destroy($krs->krs_id);
+        // Krs::where('krs_id', $id)->delete();
+        $idkls = Krs::where('krs_id', $id)->first(['kelas_id']);
+        // return redirect()->action([KelasController::class, 'show'], ['kelas' => $idkls->kelas_id]);
+        return redirect('dkelas/'.$idkls->kelas_id);
     }
 }
