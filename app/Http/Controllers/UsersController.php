@@ -16,7 +16,9 @@ class UsersController extends Controller
     public function index()
     {
         
-        $mahasiswa = User::where('level', 'mahasiswa')->get();
+        $pagination = 10;
+
+        $mahasiswa = User::where('level', 'mahasiswa')->paginate($pagination);
 
         return view('mahasiswa.index', compact('mahasiswa'));
     }

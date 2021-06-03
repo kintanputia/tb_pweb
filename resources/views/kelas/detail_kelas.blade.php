@@ -187,11 +187,13 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">
-                            @if ($prt->mahasiswa_id == auth()->user()->id)
-                                {{$kehadiran='Hadir'}}
-                            @else 
-                                {{$kehadiran='Tidak Hadir'}}
-                            @endif
+                            @foreach ($krs as $absen)
+                                @if($absen->pertemuan_id == $prt->pertemuan_id)
+                                    {{$Kehadiran = '8Hadir8'}}
+                                @else
+                                    {{$kehadiran = 'Tidak Hadir'}}
+                                @endif
+                            @endforeach
                             </div>
                         </td>
                         </tr>
