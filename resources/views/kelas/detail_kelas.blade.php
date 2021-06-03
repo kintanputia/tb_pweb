@@ -187,13 +187,16 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">
-                            @foreach ($krs as $absen)
-                                @if($absen->pertemuan_id == $prt->pertemuan_id)
-                                    {{$Kehadiran = '8Hadir8'}}
-                                @else
-                                    {{$kehadiran = 'Tidak Hadir'}}
-                                @endif
-                            @endforeach
+                                <?php
+                                    foreach ($krs as $absen){
+                                        if ($prt->pertemuan_id == $absen->pertemuan_id){
+                                            $kehadiran = 'Hadir';
+                                        } else if ($prt->pertemuan_id != $absen->pertemuan_id){
+                                            $kehadiran = ' Tidak Hadir';
+                                        }
+                                    }
+                                ?>
+                                {{$kehadiran}}
                             </div>
                         </td>
                         </tr>
