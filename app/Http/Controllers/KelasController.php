@@ -68,14 +68,43 @@ class KelasController extends Controller
             $sPertemuan = Pertemuan::where('kelas_id', $kelas->id)->get();
         }
         else{
-            $krs = DB::table('kelas')->get();
-            $sPertemuan = DB::table('absensi')
-                    ->join ('krs', 'absensi.krs_id', '=', 'krs.krs_id')
-                    ->join ('pertemuan', 'krs.kelas_id','=', 'pertemuan.kelas_id')
-                    ->select ('mahasiswa_id', 'pertemuan_ke', 'krs.krs_id')
-                    ->where ('pertemuan.kelas_id', '=', $kelas->id)
+            $krs = DB::table('krs')
+                    //->join ('users', 'krs.mahasiswa_id', '=', 'users.id')
+                    ->join ('absensi', 'krs.krs_id', '=', 'absensi.krs_id')
+                    ->select ('absensi.pertemuan_id', 'absensi.krs_id')
+                    ->where ('krs.mahasiswa_id', '=', auth()->user()->id)
                     ->get();
-        }
+            $sPertemuan = DB::table('pertemuan')
+                        //  ->join ('absensi', 'absensi.pertemuan_id','=', 'pertemuan.pertemuan_id')
+                        //  ->join ('kelas', 'pertemuan.kelas_id', '=', 'kelas.id')
+                        // ->join ('pertemuan', function ($join) {
+                        //     $join->on('absensi.pertemuan_id','=', 'pertemuan.pertemuan_id')
+                        //          ->where('pertemuan.kelas_id', '=', $kelas->id);
+                        //         })
+                        ->select ('pertemuan_ke','pertemuan_id')
+                        ->where ('pertemuan.kelas_id', '=', $kelas->id)
+                        ->get();
+                        // foreach ($krs as $absen){
+                        //     foreach ($sPertemuan as $prt){
+                        //         if ($absen->pertemuan_id == $prt->pertemuan_id){
+                        //         $kehadiran = 'Hadir';
+                        //         }else{
+                        //         $kehadiran = 'Tidak Hadir';
+                        //         }
+                        //     }
+                        // }
+                        // $panjang1 = count($krs);
+                        // $panjang2 = count($sPertemuan);
+                        // for ($i=0 ; $i<$panjang1 ; ++$i){
+                        //     for ($j=0 ; $j<$panjang2 ; ++$j){
+                        //         if ($krs[$i]=$sPertemuan[$j]){
+                        //             $kehadiran = 'Hadir';
+                        //         }else {
+                        //             $kehadiran = 'Tidak Hadir';
+                        //         }
+                        //     }
+                        // }
+            }
         return view('kelas.detail_kelas', compact('kelas', 'krs', 'sPertemuan'));
     }
 
