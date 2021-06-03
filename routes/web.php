@@ -44,8 +44,10 @@ Route::post('/dkelas/{kelas}', [App\Http\Controllers\KrsController::class, 'stor
 Route::get('/hapus_peserta/{krs}', [App\Http\Controllers\KrsController::class, 'destroy']);
 
 //
-Route::get('/tkelas', [App\Http\Controllers\KrsController::class, 'create']);
+Route::get('/tkelas', [App\Http\Controllers\KelasController::class, 'create']);
+Route::post('/tkelas', [App\Http\Controllers\KelasController::class, 'store']);
 Route::get('/ukelas/{kelas}', [App\Http\Controllers\KelasController::class, 'edit']);
+Route::post('/ukelas/{kelas}', [App\Http\Controllers\KelasController::class, 'update']);
 
 use App\Http\Controllers\UsersController;
 Route::get('/mahasiswa', [UsersController::class, 'index'])->name('mahasiswa');
