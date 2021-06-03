@@ -95,7 +95,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="/hapus_peserta/{{$k->id}}" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
+                                <a href="/hapus_peserta/{{$krs->krs_id}}" class="text-indigo-600 hover:text-indigo-900">Hapus</a>
                             </td>
                             </tr>
                             @endforeach
