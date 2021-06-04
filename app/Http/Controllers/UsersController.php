@@ -85,7 +85,14 @@ class UsersController extends Controller
                 'name' => $request->name,
                 'nim' => $request->nim
             ]);
+
+        if($user)
+        {
             return redirect('/mahasiswa')->with('status', 'Data Berhasil Diubah');
+        }else {
+            return redirect('/mahasiswa')->with('error', 'Data Gagal Diubah.');
+        }
+            
     }
 
     /**
@@ -97,6 +104,13 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         User::destroy($user->id);
-        return redirect('/mahasiswa')->with('status', 'Data Mahasiswa Berhasil Dihapus!');
+
+        if($user)
+        {
+            return redirect('/mahasiswa')->with('status', 'Data Berhasil Dihapus');
+        }else{
+            return redirect('/mahasiswa')->with('status', 'Data Gagal Dihapus');
+        }
+        
     }
 }

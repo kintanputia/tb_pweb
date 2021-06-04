@@ -6,16 +6,23 @@
     </x-slot>
     @if (auth()->user()->level=="admin")
         <div class="container">
-            <div class="flex justify-center p-4 mb-5">
-                <h1 class="text-xl text-blue-500">Daftar Mahasiswa</h1>
+            <div class="flex justify-center  mt-5 pb-3">
+                <h1 class="text-xl text-blue-500">List Data Mahasiswa</h1>
             </div>
-                <div class="flex justify-center">
+                
+                @if (session('status'))
+                <div class="flex justify-center mx-96 px-4 py-2 mb-4 text-sm text-center text-green-800 bg-green-300 rounded-full shadow-sm">
+                    {!! session('status') !!}
+                </div>
+                @endif
+
+                <div class="flex justify-center"> 
                     <div class="bg-white shadow-xl rounded-lg w-1/2">
                         @foreach($mahasiswa as $user)
                         <ul class="divide-y divide-gray-300">
                             <li class="p-4 hover:bg-gray-50 cursor-pointer">
                                 {{ $user->name}}
-                                <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
+                                <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-green-600 hover:bg-grey">
                                     <a href="/dmahasiswa/{{$user->id}}">Detail</a>
                                 </button>
                             </li>
@@ -23,40 +30,14 @@
                         </ul>
                     </div>
                 </div>
-                    <div class="flex justify-center text-gray-600 bg-secondary-50 my-3">
+                    <div class="py-2 flex justify-center text-gray-600 bg-secondary-50 my-3">
                         {{ $mahasiswa->links() }}
                     </div>
-                </div>
+             </div>
     @endif
-    {{-- @if (auth()->user()->level=="mahasiswa")
-        <div class="container">
-            <div class="flex justify-center p-4 mb-10">
-                <h1 class="text-xl text-blue-500">Daftar Kelas</h1>
-            </div>
-            <div class="flex justify-center">
-                    <div class="bg-white shadow-xl rounded-lg w-1/2">
-                    @foreach($data_krs as $kelas)
-                        <ul class="divide-y divide-gray-300">
-                            <li class="p-4 hover:bg-gray-50 cursor-pointer">
-                            {{ $kelas->kode_kelas}}
-                            <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="/dkelas/{{$kelas->id}}">Detail</a>
-                            </button>
-                            @if (auth()->user()->level=="admin")
-                            <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="/ukelas/{{$kelas->id}}">Ubah</a>
-                            </button>
-                            @endif
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @if (auth()->user()->level=="admin")
-                    <button class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-grey border-grey hover:bg-grey">
-                            <a href="/tkelas">Tambah</a>
-                            </button>
-                    @endif
-                </div>
-        </div>
-    @endif --}}
+    <div class="flex absolute top-20 right-28  mx-10">
+        <button class="p-2 ml-4 mr-2 border-2 bg-white rounded hover:text-red-600 text-black border-blue-600 hover:bg-grey">
+            <a href="/dashboard">Kembali</a>
+        </button>
+    </div>
 </x-app-layout>

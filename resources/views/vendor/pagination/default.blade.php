@@ -34,7 +34,7 @@
 
   <div class="flex-col hidden lg:flex-row sm:flex-1 sm:flex sm:items-center sm:justify-between">
     <div>
-      <p class="text-sm leading-5 dark:text-gray-300">
+      <p class="mx-5 text-sm leading-5 dark:text-gray-300">
         {{ __('pagination.showing') }}
         <span class="font-medium">{{ $paginator->firstItem() }}</span>
         {{ __('pagination.to') }}
